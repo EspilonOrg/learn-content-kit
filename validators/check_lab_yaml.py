@@ -53,10 +53,37 @@ def _yaml():
     return yaml
 
 
+def _format_yaml_error(path: str, exc) -> str:
+    """Turn a PyYAML exception into a terse file:line:col message, the same way
+    validate_static_meta.py does, so a malformed value never dumps a traceback."""
+    mark = getattr(exc, "problem_mark", None) or getattr(exc, "context_mark", None)
+    reason = getattr(exc, "problem", None) or str(exc).splitlines()[0]
+    if mark is not None:
+        loc = f"{path}:{mark.line + 1}:{mark.column + 1}"
+        hint = ""
+        if reason and "mapping values are not allowed" in reason:
+            hint = (
+                "  (an unquoted multi-line value contains ': ' or a trailing ':' "
+                "-- use a '>' block scalar or quote the string)"
+            )
+        elif reason and "could not find expected ':'" in reason:
+            hint = (
+                "  (a plain scalar broke into what looks like a mapping -- "
+                "use a '>' block scalar or quote the string)"
+            )
+        return f"{loc}  YAML syntax error: {reason}{hint}"
+    return f"{path}  YAML syntax error: {reason}"
+
+
 def _load(path: str):
+    """Return (data, errors). On a YAML syntax error data is None and errors
+    holds a single clean 'file:line:col  reason' string."""
     yaml = _yaml()
-    with open(path, "r", encoding="utf-8") as fh:
-        return yaml.safe_load(fh)
+    try:
+        with open(path, "r", encoding="utf-8") as fh:
+            return yaml.safe_load(fh), []
+    except yaml.YAMLError as exc:
+        return None, [_format_yaml_error(path, exc)]
 
 
 def _check_flag_shape(label: str, value) -> list[str]:
@@ -67,7 +94,9 @@ def _check_flag_shape(label: str, value) -> list[str]:
 
 def check_lab_yaml(lab_path: str) -> list[str]:
     errs: list[str] = []
-    data = _load(lab_path)
+    data, load_errs = _load(lab_path)
+    if load_errs:
+        return load_errs
     if not isinstance(data, dict):
         return [f"{lab_path}: top-level document is not a mapping"]
 
@@ -153,7 +182,9 @@ def check_lab_yaml(lab_path: str) -> list[str]:
 
 def check_compose(compose_path: str, lab_data: dict) -> list[str]:
     errs: list[str] = []
-    data = _load(compose_path)
+    data, load_errs = _load(compose_path)
+    if load_errs:
+        return load_errs
     if not isinstance(data, dict):
         return [f"{compose_path}: top-level document is not a mapping"]
     services = data.get("services")
@@ -224,8 +255,10 @@ def main(argv: list[str]) -> int:
         return 2
 
     errs = check_lab_yaml(lab_path)
-    lab_data = _load(lab_path)
-    if os.path.isfile(compose_path) and isinstance(lab_data, dict):
+    lab_data, _lab_load_errs = _load(lab_path)
+    # Only reach into compose when lab.yaml itself parsed; otherwise the lab
+    # errors above already carry the clean YAML message.
+    if not _lab_load_errs and os.path.isfile(compose_path) and isinstance(lab_data, dict):
         errs += check_compose(compose_path, lab_data)
 
     rel = os.path.relpath(lab_path)

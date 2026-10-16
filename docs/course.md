@@ -182,8 +182,9 @@ lesson depends on, by sha256.
 - Structural drift between locales. Structural fields are read from `lesson-en`
   only. Putting a different `TYPE` or `MODULE` in the FR file does nothing and
   hides the mismatch.
-- An unknown `TYPE` plus `ARCHETYPE_ROLE` pair. It is rejected at ingest, which
-  is what keeps a lesson from rendering with the wrong badge.
+- A lesson where NEITHER `TYPE` nor `ARCHETYPE_ROLE` is on its allowlist. That is
+  the only case rejected at ingest (the rule is an OR, not a pair match), and the
+  rejection is what keeps a lesson from rendering with the wrong badge.
 - A typo'd `ARTIFACT` slug. The ingest warns rather than fails, so the lesson
   ships unwired. Read the warnings.
 - A raster screenshot where an inline SVG belongs. Uploaded images are not part

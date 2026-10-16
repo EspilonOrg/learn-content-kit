@@ -5,11 +5,12 @@
 # maintainers place it in the platform's labs repository when it is ingested, so
 # you fill it in here and hand it off; you do not deploy it yourself.
 #
-# There is NO public validator for these fields yet, so the field reference is
-# docs/model-b-lab.md rather than a gate. The maintainers keep two shipped
-# reference labs: a multi-flag staged-objective lab and a single-flag lab. Ask
-# through the portal for the current reference example when the two sources of
-# truth (this doc and a shipped lab) disagree.
+# Lint this file before you submit:
+#   python3 validators/check_lab_yaml.py templates/model-b-lab
+# It checks the required keys, the two enums, the exactly-one-of flag rule, the
+# success_criteria shape, and the compose strict-subset rules. docs/model-b-lab.md
+# is the full field reference. When a rule is genuinely unclear for your protocol,
+# ask through the portal rather than guessing.
 #
 # Model B (the house delivery model): the player brings their own kali/tools,
 # the lab ships ONLY the target service(s), the flag travels over the protocol,
