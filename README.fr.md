@@ -21,12 +21,13 @@ soumissions acceptées.
 
 | Type de contenu | Template à copier | Guide |
 |---|---|---|
-| Un static challenge | [`templates/static-challenge/`](templates/static-challenge) | [`docs/static-challenge.fr.md`](docs/static-challenge.fr.md) |
-| Un lab Model-B | [`templates/model-b-lab/`](templates/model-b-lab) | [`docs/model-b-lab.fr.md`](docs/model-b-lab.fr.md) |
-| Un cours | [`templates/course/`](templates/course) | [`docs/course.fr.md`](docs/course.fr.md) |
-| Une entrée wiki | [`templates/wiki/`](templates/wiki) | [`docs/wiki-entry.fr.md`](docs/wiki-entry.fr.md) |
+| Un static challenge | [`templates/static-challenge/`](templates/static-challenge) | [`templates/static-challenge/README.fr.md`](templates/static-challenge/README.fr.md) |
+| Un lab Model-B | [`templates/model-b-lab/`](templates/model-b-lab) | [`templates/model-b-lab/README.fr.md`](templates/model-b-lab/README.fr.md) |
+| Un cours | [`templates/course/`](templates/course) | [`templates/course/README.fr.md`](templates/course/README.fr.md) |
+| Une entrée wiki | [`templates/wiki/`](templates/wiki) | [`templates/wiki/README.fr.md`](templates/wiki/README.fr.md) |
 
-Chaque template est un exemple réel et fonctionnel, pas une esquisse. Le template
+Chaque template est un exemple réel et fonctionnel, pas une esquisse, et s'ouvre
+sur son propre guide (le `README.md` dans le dossier). Le template
 static-challenge passe les validateurs livrés tel quel.
 
 - Un **static challenge** est un casse-tête autonome : des fichiers
@@ -43,9 +44,9 @@ static-challenge passe les validateurs livrés tel quel.
 ## Comment ça marche
 
 1. Copie le template de ton type de contenu dans un dossier de travail.
-2. Remplis-le en suivant son guide sous [`docs/`](docs).
+2. Remplis-le en suivant le `README.md` dans le dossier du template.
 3. Lance les vérifications locales (voir
-   [`validators/README.md`](validators/README.md) et le guide).
+   [`validators/README.md`](validators/README.md) et ce guide).
 4. Soumets via le portail membre d'Espilon Learn.
 
 Chaque guide dit exactement quelles vérifications tu lances localement et

@@ -73,8 +73,9 @@ run on the maintainer side when your submission is ingested. Do not expect a
 green light from this directory for them:
 
 - The course sync and its structural gates (TLDR length, the TYPE and
-  ARCHETYPE_ROLE allowlist, artifact resolution) need a database. `docs/course.md`
-  lists what to verify by hand in the meantime.
+  ARCHETYPE_ROLE allowlist, artifact resolution) need a database. The course
+  guide (`templates/course/README.md`) lists what to verify by hand in the
+  meantime.
 - The course and wiki French-accent gates calibrate against the whole published
   corpus, so they cannot judge a single submission in isolation.
 - The wiki related-reference check needs the live gear and course catalogue; put
@@ -84,5 +85,5 @@ green light from this directory for them:
   the protocol) can only be judged by running it; `check_lab_yaml.py` covers the
   static field and compose rules, not that.
 
-The per-type docs under `docs/` say, for each type, exactly which checks you run
-here and which are maintainer-side.
+The `README.md` inside each template folder says, for each type, exactly which
+checks you run here and which are maintainer-side.

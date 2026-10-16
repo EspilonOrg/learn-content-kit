@@ -3,8 +3,9 @@
 Français: [CONTRIBUTING.fr.md](CONTRIBUTING.fr.md)
 
 Thank you for wanting to add content to Espilon Learn. This file is the house
-rules and how to propose content. The step-by-step for each content type is in
-`docs/`; this is what applies to all of them.
+rules and how to propose content. The step-by-step for each content type is the
+`README.md` inside that type's template folder; this is what applies to all of
+them.
 
 ## House rules
 
@@ -26,7 +27,7 @@ These are not style preferences; the platform and its gates enforce them.
 
 ## How to propose content
 
-1. Pick the content type and read its doc under `docs/`.
+1. Pick the content type and read the `README.md` in its template folder.
 2. Copy the matching template from `templates/` into a working folder and fill it
    in. Keep the example structure; replace the example values with yours.
 3. Run every local check the doc lists for that type (see `validators/README.md`).

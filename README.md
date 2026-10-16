@@ -20,13 +20,14 @@ ingest and publish accepted submissions.
 
 | Content type | Template to copy | Guide |
 |---|---|---|
-| A static challenge | [`templates/static-challenge/`](templates/static-challenge) | [`docs/static-challenge.md`](docs/static-challenge.md) |
-| A Model-B lab | [`templates/model-b-lab/`](templates/model-b-lab) | [`docs/model-b-lab.md`](docs/model-b-lab.md) |
-| A course | [`templates/course/`](templates/course) | [`docs/course.md`](docs/course.md) |
-| A wiki entry | [`templates/wiki/`](templates/wiki) | [`docs/wiki-entry.md`](docs/wiki-entry.md) |
+| A static challenge | [`templates/static-challenge/`](templates/static-challenge) | [`templates/static-challenge/README.md`](templates/static-challenge/README.md) |
+| A Model-B lab | [`templates/model-b-lab/`](templates/model-b-lab) | [`templates/model-b-lab/README.md`](templates/model-b-lab/README.md) |
+| A course | [`templates/course/`](templates/course) | [`templates/course/README.md`](templates/course/README.md) |
+| A wiki entry | [`templates/wiki/`](templates/wiki) | [`templates/wiki/README.md`](templates/wiki/README.md) |
 
-Each template is a real, working example, not a sketch. The static-challenge
-template passes the shipped validators as-is.
+Each template is a real, working example, not a sketch, and opens with its own
+guide (the `README.md` inside the folder). The static-challenge template passes
+the shipped validators as-is.
 
 - A **static challenge** is a self-contained puzzle: downloadable files and a
   flag the player recovers from them alone. No server.
@@ -40,9 +41,9 @@ template passes the shipped validators as-is.
 ## How it works
 
 1. Copy the template for your content type into a working folder.
-2. Fill it in, following its guide under [`docs/`](docs).
+2. Fill it in, following the `README.md` inside the template folder.
 3. Run the local checks (see [`validators/README.md`](validators/README.md) and
-   the guide).
+   that guide).
 4. Submit through the Espilon Learn member portal.
 
 Each guide states exactly which checks you run locally and which the maintainers

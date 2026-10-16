@@ -1,6 +1,9 @@
 # Créer un cours
 
-English: [course.md](course.md)
+English: [README.md](README.md)
+
+Ce README est le guide pour remplir le template. Il ne fait pas partie de
+l'artefact soumis ; les mainteneurs l'ignorent à l'ingestion.
 
 ## Sommaire
 
@@ -137,7 +140,7 @@ artifacts:
       <filename>: sha256:<hex>    # une ligne par fichier joueur épinglé
 ```
 
-Le `templates/course/_artifacts.yaml` livré épingle le `sample.bin` du template
+Le `_artifacts.yaml` livré dans ce dossier épingle le `sample.bin` du template
 static-challenge compagnon. Son hash est le vrai sha256 de ce fichier tel que
 `generate.py` le produit, donc tu peux le vérifier :
 

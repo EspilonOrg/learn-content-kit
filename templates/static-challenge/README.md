@@ -1,6 +1,9 @@
 # Authoring a static challenge
 
-Français: [static-challenge.fr.md](static-challenge.fr.md)
+Français: [README.fr.md](README.fr.md)
+
+This README is the guide for filling the template. It is not part of the
+submitted artifact; the maintainers ignore it on ingestion.
 
 ## Contents
 

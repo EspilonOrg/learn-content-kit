@@ -79,8 +79,8 @@ ingérée. N'attends pas un feu vert de ce répertoire pour elles :
 
 - La synchro des cours et ses gates structurelles (longueur du TLDR, la liste
   autorisée TYPE et ARCHETYPE_ROLE, la résolution des artefacts) ont besoin d'une
-  base de données. `docs/course.md` liste ce qu'il faut vérifier à la main en
-  attendant.
+  base de données. Le guide du cours (`templates/course/README.md`) liste ce
+  qu'il faut vérifier à la main en attendant.
 - Les gates d'accents français des cours et du wiki se calibrent sur l'ensemble
   du corpus publié, donc elles ne peuvent pas juger une soumission isolée.
 - La vérification des références liées du wiki a besoin du catalogue vivant de
@@ -91,5 +91,5 @@ ingérée. N'attends pas un feu vert de ce répertoire pour elles :
   `check_lab_yaml.py` couvre les règles statiques de champs et de compose, pas
   cela.
 
-Les docs par type sous `docs/` disent, pour chaque type, exactement quelles
-vérifications tu lances ici et lesquelles sont côté mainteneur.
+Le `README.md` dans chaque dossier de template dit, pour chaque type, exactement
+quelles vérifications tu lances ici et lesquelles sont côté mainteneur.

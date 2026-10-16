@@ -24,7 +24,7 @@ lesson 2. The reader should finish this lesson wanting the next one.
 
 This is archetype A (project-based): theory is motivated by a practical need and
 delivered just in time. For the three archetypes and when to pick each, read
-`docs/course.md`.
+`../README.md`.
 
 Replace this body with your own markdown. H2 headings, fenced code blocks and
 tables all render. Where the model is spatial (a bus, a topology, a packet
@@ -89,5 +89,5 @@ the companion static-challenge template by slug. When your submission
 is ingested the resolver links the lesson to that resource; if it does not exist
 yet the ingestion warns and continues, so wiring never blocks. Pin the exact
 artifact bytes a lesson depends on in a top-level `_artifacts.yaml` in your
-course folder (see `docs/course.md`).
+course folder (see `../README.md`).
 ===== LESSON END =====

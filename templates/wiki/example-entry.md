@@ -8,7 +8,7 @@ tags: "example, placeholder, concept"
 terms: "example entry"
 icon: "EX"
 published: true
-image: "img/wiki/example-entry.webp"   # OPTIONAL hero image; see docs/wiki-entry.md for how to submit the webp
+image: "img/wiki/example-entry.webp"   # OPTIONAL hero image; see README.md for how to submit the webp
 related_gear: "replace-with-a-real-gear-slug"       # replace with a real platform slug; maintainers validate on ingestion
 related_courses: "replace-with-a-real-course-slug"  # replace with a real platform slug; maintainers validate on ingestion
 diagram:

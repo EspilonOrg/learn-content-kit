@@ -24,7 +24,7 @@ ici, c'est la leçon 2. Le lecteur doit finir cette leçon en voulant la suivant
 
 C'est l'archétype A (project-based) : la théorie est motivée par un besoin
 pratique et livrée juste à temps. Pour les trois archétypes et le choix de
-chacun, lis `docs/course.md`.
+chacun, lis `../README.md`.
 
 Remplace ce corps par le tien, en markdown. Les titres H2, les blocs de code et
 les tableaux se rendent. Quand le modèle est spatial (un bus, une topologie, une
@@ -91,5 +91,5 @@ Lors de l'ingestion de ta soumission, le resolver relie la leçon à cette
 ressource ; si elle n'existe pas encore, l'ingestion émet un avertissement et
 continue, donc le câblage ne bloque jamais. Épingle les octets exacts d'un
 artefact dont dépend une leçon dans un `_artifacts.yaml` à la racine de ton
-cours (voir `docs/course.md`).
+cours (voir `../README.md`).
 ===== LESSON END =====

@@ -1,6 +1,9 @@
 # Authoring a wiki entry
 
-Français: [wiki-entry.fr.md](wiki-entry.fr.md)
+Français: [README.fr.md](README.fr.md)
+
+This README is the guide for filling the template. It is not part of the
+submitted artifact; the maintainers ignore it on ingestion.
 
 ## Contents
 

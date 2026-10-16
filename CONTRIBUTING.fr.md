@@ -4,7 +4,8 @@ English: [CONTRIBUTING.md](CONTRIBUTING.md)
 
 Merci de vouloir ajouter du contenu à Espilon Learn. Ce fichier donne les règles
 de la maison et la façon de proposer du contenu. Le pas à pas pour chaque type de
-contenu est dans `docs/` ; ceci est ce qui s'applique à tous.
+contenu est le `README.md` dans le dossier de template de ce type ; ceci est ce
+qui s'applique à tous.
 
 ## Règles de la maison
 
@@ -31,7 +32,7 @@ imposent.
 
 ## Comment proposer du contenu
 
-1. Choisis le type de contenu et lis son doc sous `docs/`.
+1. Choisis le type de contenu et lis le `README.md` dans son dossier de template.
 2. Copie le template correspondant depuis `templates/` dans un dossier de travail
    et remplis-le. Garde la structure d'exemple ; remplace les valeurs d'exemple
    par les tiennes.

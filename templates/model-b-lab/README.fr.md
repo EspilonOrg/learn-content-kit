@@ -1,6 +1,9 @@
 # Créer un lab Model-B
 
-English: [model-b-lab.md](model-b-lab.md)
+English: [README.md](README.md)
+
+Ce README est le guide pour remplir le template. Il ne fait pas partie de
+l'artefact soumis ; les mainteneurs l'ignorent à l'ingestion.
 
 ## Sommaire
 

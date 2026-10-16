@@ -1,6 +1,9 @@
 # Authoring a course
 
-Français: [course.fr.md](course.fr.md)
+Français: [README.fr.md](README.fr.md)
+
+This README is the guide for filling the template. It is not part of the
+submitted artifact; the maintainers ignore it on ingestion.
 
 ## Contents
 
@@ -129,7 +132,7 @@ artifacts:
       <filename>: sha256:<hex>    # one line per pinned player-facing file
 ```
 
-The shipped `templates/course/_artifacts.yaml` pins the companion
+The shipped `_artifacts.yaml` in this folder pins the companion
 static-challenge template's `sample.bin`. Its hash is the real sha256 of that
 file as `generate.py` produces it, so you can verify it:
 
