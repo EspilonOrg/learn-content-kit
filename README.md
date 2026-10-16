@@ -1,5 +1,7 @@
 # Espilon Learn content-authoring kit
 
+Français: [README.fr.md](README.fr.md)
+
 This repository is the canonical set of templates and documentation for
 contributing content to Espilon Learn, the cybersecurity learning platform at
 [learn.espilon.net](https://learn.espilon.net). It is run by Espilon, a

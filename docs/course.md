@@ -1,5 +1,7 @@
 # Authoring a course
 
+Français: [course.fr.md](course.fr.md)
+
 A course is a bilingual sequence of lessons, grouped into modules, that teaches a
 subject and ends by applying it to a real artifact (a static challenge or a lab).
 A course is text and structure only; the platform renders it.

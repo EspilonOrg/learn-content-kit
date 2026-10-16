@@ -1,5 +1,7 @@
 # Contributing
 
+Français: [CONTRIBUTING.fr.md](CONTRIBUTING.fr.md)
+
 Thank you for wanting to add content to Espilon Learn. This file is the house
 rules and how to propose content. The step-by-step for each content type is in
 `docs/`; this is what applies to all of them.

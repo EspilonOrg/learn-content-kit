@@ -1,5 +1,7 @@
 # Authoring a static challenge
 
+Français: [static-challenge.fr.md](static-challenge.fr.md)
+
 A static challenge is a self-contained puzzle: one or more downloadable files and
 a flag the player recovers from those files alone. No server, no session, no
 network. If the answer can be recomputed from the artifact on the player's own

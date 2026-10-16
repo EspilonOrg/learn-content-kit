@@ -1,5 +1,7 @@
 # Local validators
 
+Français: [README.fr.md](README.fr.md)
+
 These are the checks a contributor can run offline, with no platform and no
 database, before submitting content. They need Python 3 and PyYAML:
 

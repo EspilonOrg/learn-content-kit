@@ -1,5 +1,7 @@
 # Authoring a Model-B lab
 
+Français: [model-b-lab.fr.md](model-b-lab.fr.md)
+
 A Model-B lab is a live, per-session target the player attacks from their own
 machine. The lab ships only the target service or services; the player brings
 their own tools (a Kali box, the `espilon-probe` client, whatever the protocol

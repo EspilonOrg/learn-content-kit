@@ -1,5 +1,7 @@
 # Authoring a wiki entry
 
+Français: [wiki-entry.fr.md](wiki-entry.fr.md)
+
 A wiki entry is a reference page about one thing: a chip, a protocol, a bus, a
 concept. It is bilingual, it links to the courses and gear that use it, and it
 can carry one structured in-page diagram. It is standalone reading, not a lesson.
