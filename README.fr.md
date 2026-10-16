@@ -19,10 +19,10 @@ publient les soumissions acceptées.
 
 | Ce que tu construis | Copie ce template | Suis ce doc |
 |---|---|---|
-| Un static challenge | `templates/static-challenge/` | `docs/static-challenge.md` |
-| Un lab Model-B | `templates/model-b-lab/` | `docs/model-b-lab.md` |
-| Un cours | `templates/course/` | `docs/course.md` |
-| Une entrée wiki | `templates/wiki/` | `docs/wiki-entry.md` |
+| Un static challenge | [`templates/static-challenge/`](templates/static-challenge) | [`docs/static-challenge.fr.md`](docs/static-challenge.fr.md) |
+| Un lab Model-B | [`templates/model-b-lab/`](templates/model-b-lab) | [`docs/model-b-lab.fr.md`](docs/model-b-lab.fr.md) |
+| Un cours | [`templates/course/`](templates/course) | [`docs/course.fr.md`](docs/course.fr.md) |
+| Une entrée wiki | [`templates/wiki/`](templates/wiki) | [`docs/wiki-entry.fr.md`](docs/wiki-entry.fr.md) |
 
 Chaque template est un exemple réel et fonctionnel, pas une esquisse. Le template
 static-challenge passe les validateurs livrés tel quel, et chaque doc te dit

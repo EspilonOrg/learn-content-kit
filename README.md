@@ -18,10 +18,10 @@ anything yourself; the maintainers ingest and publish accepted submissions.
 
 | You are building | Copy this template | Follow this doc |
 |---|---|---|
-| A static challenge | `templates/static-challenge/` | `docs/static-challenge.md` |
-| A Model-B lab | `templates/model-b-lab/` | `docs/model-b-lab.md` |
-| A course | `templates/course/` | `docs/course.md` |
-| A wiki entry | `templates/wiki/` | `docs/wiki-entry.md` |
+| A static challenge | [`templates/static-challenge/`](templates/static-challenge) | [`docs/static-challenge.md`](docs/static-challenge.md) |
+| A Model-B lab | [`templates/model-b-lab/`](templates/model-b-lab) | [`docs/model-b-lab.md`](docs/model-b-lab.md) |
+| A course | [`templates/course/`](templates/course) | [`docs/course.md`](docs/course.md) |
+| A wiki entry | [`templates/wiki/`](templates/wiki) | [`docs/wiki-entry.md`](docs/wiki-entry.md) |
 
 Every template is a real, working example, not a sketch. The static-challenge
 template passes the shipped validators as-is, and each doc tells you exactly
