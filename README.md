@@ -2,45 +2,51 @@
 
 Français: [README.fr.md](README.fr.md)
 
-This repository is the canonical set of templates and documentation for
-contributing content to Espilon Learn, the cybersecurity learning platform at
-[learn.espilon.net](https://learn.espilon.net). It is run by Espilon, a
-not-for-profit association.
+Templates and documentation for contributing content to Espilon Learn, the
+cybersecurity learning platform at [learn.espilon.net](https://learn.espilon.net),
+run by the Espilon association. Copy a template, fill it in, run the local
+checks, and submit through the member portal. You never deploy; the maintainers
+ingest and publish accepted submissions.
 
-If you want to build a lab, a challenge, a course or a wiki page and ship it to
-the platform, this is where you start. Copy a template, fill it in, run the local
-checks, and submit it through the Espilon Learn member portal. You do not deploy
-anything yourself; the maintainers ingest and publish accepted submissions.
+## Contents
+
+- [What you can build](#what-you-can-build)
+- [How it works](#how-it-works)
+- [Run the local checks](#run-the-local-checks)
+- [House rules](#house-rules)
+- [License](#license)
 
 ## What you can build
 
-| You are building | Copy this template | Follow this doc |
+| Content type | Template to copy | Guide |
 |---|---|---|
 | A static challenge | [`templates/static-challenge/`](templates/static-challenge) | [`docs/static-challenge.md`](docs/static-challenge.md) |
 | A Model-B lab | [`templates/model-b-lab/`](templates/model-b-lab) | [`docs/model-b-lab.md`](docs/model-b-lab.md) |
 | A course | [`templates/course/`](templates/course) | [`docs/course.md`](docs/course.md) |
 | A wiki entry | [`templates/wiki/`](templates/wiki) | [`docs/wiki-entry.md`](docs/wiki-entry.md) |
 
-Every template is a real, working example, not a sketch. The static-challenge
-template passes the shipped validators as-is, and each doc tells you exactly
-which checks you can run locally and which the maintainers run at ingestion.
+Each template is a real, working example, not a sketch. The static-challenge
+template passes the shipped validators as-is.
 
 - A **static challenge** is a self-contained puzzle: downloadable files and a
   flag the player recovers from them alone. No server.
-- A **Model-B lab** is a live per-session target the player attacks from their
-  own machine. The lab ships only the target; the flag travels over the
-  protocol.
+- A **Model-B lab** is a live, per-session target the player attacks from their
+  own machine. The lab ships only the target; the flag travels over the protocol.
 - A **course** is a bilingual sequence of lessons that teaches a subject and ends
   by applying it to a challenge or a lab.
 - A **wiki entry** is a bilingual reference page about one thing: a chip, a
   protocol, a bus, a concept.
 
-## Usage flow
+## How it works
 
 1. Copy the template for your content type into a working folder.
-2. Fill it in, following the matching doc under `docs/`.
-3. Run the local checks (see `validators/README.md` and the per-type doc).
+2. Fill it in, following its guide under [`docs/`](docs).
+3. Run the local checks (see [`validators/README.md`](validators/README.md) and
+   the guide).
 4. Submit through the Espilon Learn member portal.
+
+Each guide states exactly which checks you run locally and which the maintainers
+run at ingestion.
 
 ## Run the local checks
 
@@ -59,18 +65,17 @@ python3 -I validators/check_lab_yaml.py templates/model-b-lab
 
 Point the validators at your own folder instead of the template. Courses and
 wiki entries carry checks that need the platform or the full content corpus;
-those run on the maintainer side at ingestion, and each per-type doc says exactly
-which checks you run locally and which are maintainer-side.
+those run on the maintainer side at ingestion.
 
 ## House rules
 
 Content is bilingual (English and French), carries real French accents, and uses
-no emoji and no em dash or en dash anywhere. See `CONTRIBUTING.md` for the full
-rules and how to propose content.
+no emoji and no em dash or en dash. The full rules and how to propose content are
+in [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## License
 
-MIT. See `LICENSE`.
+MIT. See [`LICENSE`](LICENSE).
 
 The Espilon name and logo are trademarks of the Espilon association and are not
 covered by the MIT license. The MIT license applies to the templates, scripts

@@ -2,20 +2,24 @@
 
 English: [README.md](README.md)
 
-Ce dépôt est l'ensemble canonique des templates et de la documentation pour
-contribuer du contenu à Espilon Learn, la plateforme d'apprentissage en
-cybersécurité à [learn.espilon.net](https://learn.espilon.net). Elle est gérée
-par Espilon, une association à but non lucratif.
+Templates et documentation pour contribuer du contenu à Espilon Learn, la
+plateforme d'apprentissage en cybersécurité à
+[learn.espilon.net](https://learn.espilon.net), gérée par l'association Espilon.
+Copie un template, remplis-le, lance les vérifications locales, et soumets via le
+portail membre. Tu ne déploies jamais ; les mainteneurs ingèrent et publient les
+soumissions acceptées.
 
-Si tu veux construire un lab, un challenge, un cours ou une page wiki et le
-livrer à la plateforme, c'est ici que tu commences. Copie un template,
-remplis-le, lance les vérifications locales, et soumets-le via le portail membre
-d'Espilon Learn. Tu ne déploies rien toi-même ; les mainteneurs ingèrent et
-publient les soumissions acceptées.
+## Sommaire
+
+- [Ce que tu peux construire](#ce-que-tu-peux-construire)
+- [Comment ça marche](#comment-ça-marche)
+- [Lancer les vérifications locales](#lancer-les-vérifications-locales)
+- [Règles de la maison](#règles-de-la-maison)
+- [Licence](#licence)
 
 ## Ce que tu peux construire
 
-| Ce que tu construis | Copie ce template | Suis ce doc |
+| Type de contenu | Template à copier | Guide |
 |---|---|---|
 | Un static challenge | [`templates/static-challenge/`](templates/static-challenge) | [`docs/static-challenge.fr.md`](docs/static-challenge.fr.md) |
 | Un lab Model-B | [`templates/model-b-lab/`](templates/model-b-lab) | [`docs/model-b-lab.fr.md`](docs/model-b-lab.fr.md) |
@@ -23,9 +27,7 @@ publient les soumissions acceptées.
 | Une entrée wiki | [`templates/wiki/`](templates/wiki) | [`docs/wiki-entry.fr.md`](docs/wiki-entry.fr.md) |
 
 Chaque template est un exemple réel et fonctionnel, pas une esquisse. Le template
-static-challenge passe les validateurs livrés tel quel, et chaque doc te dit
-exactement quelles vérifications tu peux lancer localement et lesquelles les
-mainteneurs exécutent à l'ingestion.
+static-challenge passe les validateurs livrés tel quel.
 
 - Un **static challenge** est un casse-tête autonome : des fichiers
   téléchargeables et un flag que le joueur récupère à partir de ces seuls
@@ -38,13 +40,16 @@ mainteneurs exécutent à l'ingestion.
 - Une **entrée wiki** est une page de référence bilingue sur une seule chose :
   une puce, un protocole, un bus, un concept.
 
-## Déroulé d'utilisation
+## Comment ça marche
 
 1. Copie le template de ton type de contenu dans un dossier de travail.
-2. Remplis-le en suivant le doc correspondant sous `docs/`.
-3. Lance les vérifications locales (voir `validators/README.md` et le doc par
-   type).
+2. Remplis-le en suivant son guide sous [`docs/`](docs).
+3. Lance les vérifications locales (voir
+   [`validators/README.md`](validators/README.md) et le guide).
 4. Soumets via le portail membre d'Espilon Learn.
+
+Chaque guide dit exactement quelles vérifications tu lances localement et
+lesquelles les mainteneurs exécutent à l'ingestion.
 
 ## Lancer les vérifications locales
 
@@ -64,18 +69,18 @@ python3 -I validators/check_lab_yaml.py templates/model-b-lab
 Pointe les validateurs vers ton propre dossier plutôt que vers le template. Les
 cours et les entrées wiki portent des vérifications qui ont besoin de la
 plateforme ou du corpus de contenu complet ; celles-ci tournent côté mainteneur à
-l'ingestion, et chaque doc par type dit exactement quelles vérifications tu
-lances localement et lesquelles sont côté mainteneur.
+l'ingestion.
 
 ## Règles de la maison
 
 Le contenu est bilingue (anglais et français), porte de vrais accents français,
-et n'utilise aucun emoji ni aucun tiret cadratin ou demi-cadratin nulle part.
-Voir `CONTRIBUTING.md` pour les règles complètes et comment proposer du contenu.
+et n'utilise aucun emoji ni aucun tiret cadratin ou demi-cadratin. Les règles
+complètes et la façon de proposer du contenu sont dans
+[`CONTRIBUTING.fr.md`](CONTRIBUTING.fr.md).
 
 ## Licence
 
-MIT. Voir `LICENSE`.
+MIT. Voir [`LICENSE`](LICENSE).
 
 Le nom et le logo Espilon sont des marques de l'association Espilon et ne sont
 pas couverts par la licence MIT. La licence MIT s'applique aux templates, aux
