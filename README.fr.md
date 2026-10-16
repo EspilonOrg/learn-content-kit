@@ -1,6 +1,4 @@
-<p align="center"><img src="assets/espilon-logo.png" alt="Espilon" width="200"></p>
-
-# Kit de création de contenu Espilon Learn
+# <img src="assets/espilon-logo.png" alt="Espilon" width="48" align="top"> Kit de création de contenu Espilon Learn
 
 English: [README.md](README.md)
 

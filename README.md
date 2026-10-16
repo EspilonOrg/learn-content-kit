@@ -1,6 +1,4 @@
-<p align="center"><img src="assets/espilon-logo.png" alt="Espilon" width="200"></p>
-
-# Espilon Learn content-authoring kit
+# <img src="assets/espilon-logo.png" alt="Espilon" width="48" align="top"> Espilon Learn content-authoring kit
 
 Français: [README.fr.md](README.fr.md)
 
