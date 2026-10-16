@@ -10,7 +10,7 @@ LEARNING_OUTCOMES:
 - Décrire la cible et l'objectif de ce cours en une phrase
 - Expliquer pourquoi l'approche naïve ne suffit pas
 FURTHER_READING:
-- wiki:uart
+- wiki:example-entry
 - kind: url
   title: Une source primaire que le lecteur peut vérifier
   url: https://example.org/primary-source
@@ -29,8 +29,7 @@ chacun, lis `docs/course.md`.
 Remplace ce corps par le tien, en markdown. Les titres H2, les blocs de code et
 les tableaux se rendent. Quand le modèle est spatial (un bus, une topologie, une
 disposition de paquet), inclus un `<svg>` écrit à la main dans le markdown : il
-se rend nativement et le diagram-maker en possède la version propre. Ne
-référence pas une image matricielle téléversée.
+se rend nativement. Ne référence pas une image matricielle téléversée.
 ===== LESSON END =====
 
 ===== LESSON START =====
@@ -45,7 +44,7 @@ LEARNING_OUTCOMES:
 - Énoncer le mécanisme avec tes propres mots
 - Prédire ce que tu observeras en l'appliquant
 FURTHER_READING:
-- wiki:uart
+- wiki:example-entry
 XP: 100
 CONTENT:
 # L'unique concept qu'il te faut d'abord
@@ -77,7 +76,7 @@ LEARNING_OUTCOMES:
 - Appliquer le concept à l'artefact fourni
 - Récupérer la réponse et soumettre le flag
 FURTHER_READING:
-- wiki:uart
+- wiki:example-entry
 XP: 150
 CONTENT:
 # Le prouver sur la cible
@@ -86,8 +85,8 @@ Guide le lecteur pour faire la chose, sur l'artefact réel que ce cours fournit.
 Termine sur le flag.
 
 L'en-tête `ARTIFACT:` ci-dessus relie cette leçon à la ressource qu'elle
-exerce. La syntaxe est `<kind>:<slug>` où kind vaut `challenge`, `box` ou `lab`.
-Ici elle pointe vers le template de static-challenge compagnon par son slug.
+exerce. La syntaxe est `<kind>:<slug>` où kind vaut `challenge` ou `lab`. Ici
+elle pointe vers le template de static-challenge compagnon par son slug.
 Lors de l'ingestion de ta soumission, le resolver relie la leçon à cette
 ressource ; si elle n'existe pas encore, l'ingestion émet un avertissement et
 continue, donc le câblage ne bloque jamais. Épingle les octets exacts d'un

@@ -74,8 +74,10 @@ hints:
     with a single repeating key keeps a very uneven byte histogram, unlike
     compressed or encrypted data.
   - >
-    Single-byte XOR has only 256 possible keys. Try each one and keep the
-    decode whose bytes are all printable ASCII. Exactly one key fits.
+    Single-byte XOR has only 256 possible keys. Try each one; the right key is
+    the one whose decode reads as plain text and carries a TOKEN= marker. Do not
+    lean on printability alone, since more than one key can look mostly
+    printable.
   - >
     The recovered plaintext carries a marker of the form TOKEN=... . Take the
     value after it verbatim and wrap it as ESPILON{TOKEN}.
@@ -102,9 +104,10 @@ hints_fr:
     journal obscurci par une clé unique qui se répète garde un histogramme très
     déséquilibré, contrairement à des données compressées ou chiffrées.
   - >
-    Le XOR à un octet n'a que 256 clés possibles. Essaie-les toutes et garde le
-    décodage dont tous les octets sont de l'ASCII imprimable. Une seule clé
-    convient.
+    Le XOR à un octet n'a que 256 clés possibles. Essaie-les toutes ; la bonne
+    clé est celle dont le décodage se lit comme un texte clair et porte un
+    marqueur TOKEN=. Ne te fie pas à la seule imprimabilité, car plusieurs clés
+    peuvent sembler presque imprimables.
   - >
     Le texte en clair récupéré porte un marqueur de la forme TOKEN=... . Prends
     la valeur qui suit, telle quelle, et enveloppe-la en ESPILON{TOKEN}.

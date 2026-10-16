@@ -1,0 +1,25 @@
+# _artifacts.yaml - the challenge artifact bytes this course was written against.
+#
+# Every `ARTIFACT: challenge:<slug>` in this course's lessons is pinned here by
+# sha256. The pin exists because the lessons bake concrete facts about these
+# files (blob lengths, field offsets, frame counts) that a regenerated artifact
+# would silently invalidate. When your submission is ingested the maintainers
+# verify the bytes on disk against these hashes, so a drifted artifact is caught
+# before it reaches a reader.
+#
+# Format:
+#   artifacts:
+#     - slug: <challenge-slug>        # matches an ARTIFACT: challenge:<slug> line
+#       path: <where the challenge lives in your submission>
+#       files:
+#         <filename>: sha256:<hex>    # one line per pinned player-facing file
+#
+# This example pins the companion static-challenge template's artifact. The
+# sha256 below is the real hash of templates/static-challenge/files/sample.bin as
+# produced by that challenge's generate.py, so you can verify it:
+#   python3 -c "import hashlib;print(hashlib.sha256(open('templates/static-challenge/files/sample.bin','rb').read()).hexdigest())"
+artifacts:
+  - slug: example-static-challenge
+    path: static-challenge/example-static-challenge
+    files:
+      sample.bin: sha256:26ea03f89ab012c89f87c43e8f5fc748a6ea6e040fa721dcae3888cdef204bde

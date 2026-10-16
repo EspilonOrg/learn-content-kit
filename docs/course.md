@@ -12,7 +12,9 @@ follows the house format exactly.
 
 ```
 course/
+  course.yaml                course identity: title, slug, difficulty, summary, track
   _modules.yaml              structure: module slugs, order, icons, archetype
+  _artifacts.yaml            pins the challenge artifact bytes by sha256
   lesson-en/
     lessons.md               EN lessons (structural fields are read from here)
     module-text.yaml         EN module titles and descriptions
@@ -24,6 +26,22 @@ course/
 Add a locale by adding a `lesson-<locale>/` directory with the same two files.
 Structural fields are taken from `lesson-en` only; every other locale writes a
 translation of the prose.
+
+## course.yaml
+
+The course identity, read by the maintainers to create the course record when
+your submission is ingested. Five fields, all required:
+
+- `title`: the display name, in English.
+- `slug`: unique lowercase kebab-case identifier.
+- `difficulty`: the course difficulty axis, a closed set, exactly one of
+  `beginner`, `intermediate`, `advanced`. This is a different vocabulary from a
+  static challenge's `level` (the CTF grid); do not mix them.
+- `summary`: one or two sentences for the catalogue card. Lead with the concrete
+  scenario the course teaches.
+- `track`: the curriculum track slug this course belongs to. The maintainers map
+  it to a live track on ingestion; if you are unsure which track fits, say so
+  when you submit rather than guessing.
 
 ## _modules.yaml
 
@@ -45,9 +63,10 @@ headers followed by a `CONTENT:` markdown body. The keys:
 `ESTIMATED_MINUTES`, `LEARNING_OUTCOMES`, `FURTHER_READING`, `XP`, and the
 optional `ARTIFACT`.
 
-- `TYPE`: `theory` or `practical`.
-- `ARCHETYPE_ROLE`: the lesson's role in the shape (`hook`, `theory`, `practice`,
-  `deepdive`). The `TYPE` and `ARCHETYPE_ROLE` pair must be a known combination.
+- `TYPE`: the lesson type. One of `theory`, `practical`, `challenge`, `quiz`,
+  `lab`, `hands-on`.
+- `ARCHETYPE_ROLE`: the lesson's role in the shape. One of `hook`, `theory`,
+  `setup`, `attempt`, `practice`, `deepdive`, `recipe`, `quiz`, `lab`.
 - `MODULE`: the module slug from `_modules.yaml`.
 - `TLDR`: one line, shown in the outline. It is written to a `String(500)`
   column, so it must stay under 500 characters or the ingest aborts.
@@ -55,14 +74,57 @@ optional `ARTIFACT`.
 - `FURTHER_READING`: `wiki:<slug>` references or `{kind: url, title, url}` entries
   that point at a primary source a reader can verify.
 - `ARTIFACT`: wires the lesson to the thing it exercises. Syntax `<kind>:<slug>`
-  where kind is `challenge`, `box` or `lab`.
+  where kind is `challenge` or `lab`.
 
 The `CONTENT:` body is markdown: H2 headings, fenced code and tables all render.
+
+### The TYPE and ARCHETYPE_ROLE allowlist
+
+These are two separate allowlists, and the rule is an OR: a lesson is accepted if
+its `TYPE` is in the TYPE list OR its `ARCHETYPE_ROLE` is in the ROLE list. A
+lesson is rejected at ingest only when neither field is recognised, because it
+would otherwise render with the wrong badge in the outline.
+
+- Accepted `TYPE` values: `theory`, `practical`, `challenge`, `quiz`, `lab`,
+  `hands-on`.
+- Accepted `ARCHETYPE_ROLE` values: `hook`, `theory`, `setup`, `attempt`,
+  `practice`, `deepdive`, `recipe`, `quiz`, `lab`.
+
+One pairing constraint beyond the OR-rule: a lesson whose `ARCHETYPE_ROLE` is
+`lab` should wire to a `lab:` artifact, and a lesson whose role is `challenge`
+should not wire to a `lab:` artifact. A mismatch is warned at ingest rather than
+rejected, but it means the lesson is pointing at the wrong kind of thing.
 
 ## module-text.yaml
 
 Per-locale module display strings, keyed by the slug declared in `_modules.yaml`:
 a `title` and a `description` for each module, in that locale's language.
+
+## _artifacts.yaml
+
+Pins the exact bytes of every challenge artifact the lessons depend on, by
+sha256, so a regenerated or drifted artifact is caught before a reader hits a
+lesson whose baked facts (offsets, lengths, frame counts) no longer match. The
+format:
+
+```
+artifacts:
+  - slug: <challenge-slug>        # matches an ARTIFACT: challenge:<slug> line
+    path: <where the challenge lives in your submission>
+    files:
+      <filename>: sha256:<hex>    # one line per pinned player-facing file
+```
+
+The shipped `templates/course/_artifacts.yaml` is a filled example that pins the
+companion static-challenge template's `sample.bin`. The hash in it is the real
+sha256 of that file as `generate.py` produces it, so you can verify it:
+
+```bash
+python3 -c "import hashlib;print(hashlib.sha256(open('templates/static-challenge/files/sample.bin','rb').read()).hexdigest())"
+```
+
+If a course exercises no downloadable artifact (a theory-only course, or one that
+only drives a live lab), it needs no `_artifacts.yaml`; delete the file.
 
 ## Topology
 
@@ -78,8 +140,6 @@ How the pieces wire together:
    lesson block  --- ARTIFACT: challenge:<slug> --->  static challenge
                  --- ARTIFACT: lab:<slug>       --->  Model-B lab
 ```
-
-<!-- SVG PLACEHOLDER: replace with a diagram of the module-to-lesson-to-artifact wiring -->
 
 The structural fields live once, in `lesson-en`. Every other locale carries the
 same lesson blocks with translated `TITLE`, `TLDR`, outcomes and body, and the
@@ -98,8 +158,9 @@ The course format is ingested by platform tooling that needs a database, so ther
 is no standalone course validator in this kit. Before you submit, verify by hand:
 
 - every `TLDR` is under 500 characters;
-- every `TYPE` plus `ARCHETYPE_ROLE` pair is one of the known combinations;
-- every `ARTIFACT` slug matches a challenge or lab you are also submitting;
+- every lesson's `TYPE` or `ARCHETYPE_ROLE` is on the allowlist above;
+- every `ARTIFACT` slug matches a challenge or lab you are also submitting, and
+  every file it depends on is pinned in `_artifacts.yaml`;
 - the FR locale carries real accents on every surface, asserted per word.
 
 The French-accent and course-structure gates are corpus-coupled and run on the

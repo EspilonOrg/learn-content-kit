@@ -5,19 +5,14 @@ Why this exists
 ---------------
 House rule is that player-facing text ships in English AND French. For a
 downloadable markdown artifact that means one file with both halves in it, and
-the moment there are two halves every gate that reads that file has to know
-where one ends and the other begins:
+the moment there are two halves anything that reads that file has to know where
+one ends and the other begins. In particular, the FR accent scan in
+check_fr_accents.py must read the FR half ONLY: run over the whole file it trips
+over English words that happen to be accent-stripped French ("cable",
+"controle", "interet"), which is a false red, and a gate that cries wolf gets
+switched off.
 
-  * tools/check_flash_instructions.py parses each half's esptool commands
-    separately. Parsed as one document, the FR half's commands look like a
-    second `--chip esp32` block and the gate errors out on its own document;
-    worse, an FR-only offset typo would hide behind a correct EN one.
-  * tools/check_fr_accents.py must scan the FR half ONLY. Run over the whole
-    file it trips over English words that happen to be accent-stripped French
-    ("cable", "controle", "interet"), which is a false red, and a gate that
-    cries wolf gets switched off.
-
-So the rule lives here once, and both gates plus the generator import it. It is
+So the rule lives here once and check_fr_accents.py imports it. It is
 deliberately a rule about the TEXT, not a marker written by one tool and read by
 another: any author can satisfy it by hand, and a document that does not satisfy
 it fails loudly instead of being silently treated as English-only.
@@ -30,9 +25,9 @@ a c-cedilla. Everything above that line is the English half, that line and
 everything below it is the French half.
 
 Exactly one such heading must exist. Zero means the document is monolingual (or
-the FR heading lost its cedilla, which is the accent-stripping failure this
-repo has shipped three times, and which therefore must be loud). Two or more
-means the split is ambiguous and no gate should guess.
+the FR heading lost its cedilla, which is an accent-stripping failure and
+therefore must be loud). Two or more means the split is ambiguous and no gate
+should guess.
 """
 from __future__ import annotations
 

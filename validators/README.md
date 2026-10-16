@@ -42,6 +42,23 @@ python3 -I validators/check_fr_accents.py templates/static-challenge
 
 It depends on `bilingual_doc.py` in this directory. Exit 0 means pass.
 
+### check_lab_yaml.py
+
+A field check for a Model-B lab: that `lab.yaml` has the required keys and the
+`lab-` slug prefix, that `category` and `difficulty` are on their enums, that
+exactly one of `flag` / `flag_generator` / `flags` is declared and well-formed,
+that `success_criteria` has the right shape, and that `compose.yaml` obeys the
+strict subset (no `privileged`, no `cap_add`, no host-path bind mounts, no host
+network mode) with the injected `FLAG` matching `lab.yaml` for a single-flag lab.
+
+```bash
+python3 -I validators/check_lab_yaml.py templates/model-b-lab
+```
+
+Point it at your own lab folder. Exit 0 means the fields are well-formed. It is a
+field linter, not a runtime test: it cannot tell whether the target actually
+emits the flag over the protocol.
+
 ### bilingual_doc.py
 
 Not a check you run directly. It is the shared rule that splits a bilingual
@@ -54,12 +71,16 @@ run on the maintainer side when your submission is ingested. Do not expect a
 green light from this directory for them:
 
 - The course sync and its structural gates (TLDR length, the TYPE and
-  ARCHETYPE_ROLE allowlist, artifact resolution) need a database.
+  ARCHETYPE_ROLE allowlist, artifact resolution) need a database. `docs/course.md`
+  lists what to verify by hand in the meantime.
 - The course and wiki French-accent gates calibrate against the whole published
   corpus, so they cannot judge a single submission in isolation.
-- The wiki related-reference check needs the live gear and course catalogue.
-- A Model-B lab has no field validator yet; diff `lab.yaml` against a shipped
-  reference lab and verify the compose constraints by hand.
+- The wiki related-reference check needs the live gear and course catalogue; put
+  real platform slugs in `related_gear` and `related_courses` and the maintainers
+  validate them on ingestion.
+- A Model-B lab's runtime behaviour (does the target actually emit the flag over
+  the protocol) can only be judged by running it; `check_lab_yaml.py` covers the
+  static field and compose rules, not that.
 
 The per-type docs under `docs/` say, for each type, exactly which checks you run
 here and which are maintainer-side.

@@ -10,7 +10,7 @@ LEARNING_OUTCOMES:
 - Describe the target and the goal of this course in one sentence
 - Explain why the naive approach is not enough
 FURTHER_READING:
-- wiki:uart
+- wiki:example-entry
 - kind: url
   title: A primary source the reader can verify
   url: https://example.org/primary-source
@@ -28,8 +28,8 @@ delivered just in time. For the three archetypes and when to pick each, read
 
 Replace this body with your own markdown. H2 headings, fenced code blocks and
 tables all render. Where the model is spatial (a bus, a topology, a packet
-layout), inline a hand-written `<svg>` in the markdown: it renders natively and
-the diagram-maker owns the clean version. Do not reference a raster upload.
+layout), inline a hand-written `<svg>` in the markdown: it renders natively. Do
+not reference a raster upload.
 ===== LESSON END =====
 
 ===== LESSON START =====
@@ -44,7 +44,7 @@ LEARNING_OUTCOMES:
 - State the mechanism in your own words
 - Predict what you will observe when you apply it
 FURTHER_READING:
-- wiki:uart
+- wiki:example-entry
 XP: 100
 CONTENT:
 # The one concept you need first
@@ -75,7 +75,7 @@ LEARNING_OUTCOMES:
 - Apply the concept to the provided artifact
 - Recover the answer and submit the flag
 FURTHER_READING:
-- wiki:uart
+- wiki:example-entry
 XP: 150
 CONTENT:
 # Prove it on the target
@@ -84,8 +84,8 @@ Walk the reader through doing the thing, on the real artifact this course ships.
 End on the flag.
 
 The `ARTIFACT:` header above wires this lesson to the resource it exercises.
-Syntax is `<kind>:<slug>` where kind is `challenge`, `box` or `lab`. Here it
-points at the companion static-challenge template by slug. When your submission
+Syntax is `<kind>:<slug>` where kind is `challenge` or `lab`. Here it points at
+the companion static-challenge template by slug. When your submission
 is ingested the resolver links the lesson to that resource; if it does not exist
 yet the ingestion warns and continues, so wiring never blocks. Pin the exact
 artifact bytes a lesson depends on in a top-level `_artifacts.yaml` in your

@@ -38,18 +38,19 @@ description: |
   over the protocol, there is no shell and no file.
 
 archetype: iot-mqtt          # a front-end hint; drives which viewer renders next to the panel
-radios_required: 0           # mac80211_hwsim phys the orchestrator allocates (default 0)
-caps_required: []            # docker caps to add; the orchestrator denies anything off-allowlist
-duration_minutes: 45         # auto-destroy TTL; a Learn heartbeat can extend it
+radios_required: 0           # simulated radio interfaces the runtime allocates (default 0)
+caps_required: []            # docker caps to add; the runtime denies anything off-allowlist
+duration_minutes: 45         # auto-destroy TTL; a session heartbeat can extend it
 
-# How the flag is collected. type is 'flag_submit' for now (may grow to oracle or
-# health_check). hint is the always-available player guidance.
+# How the flag is collected. type is 'flag_submit'. hint is the always-available
+# player guidance.
 success_criteria:
   type: flag_submit
   hint: |
-    Install the client (pip install espilon-probe), point ESP_PROBE at the endpoint
-    on your lab panel, then work the protocol until the target emits the flag. Keep
-    the real method in the course and in the paid hint rungs, not here.
+    Install the espilon-probe client (your lab panel links the current build),
+    point it at the endpoint shown on your lab panel, then work the protocol
+    until the target emits the flag. Keep the real method in the course and in
+    the paid hint rungs, not here.
 
 # FLAG: pick exactly ONE of the three shapes below.
 #
@@ -58,9 +59,11 @@ success_criteria:
 flag: ESPILON{example_m0del_b_fl4g}
 #
 # (2) Session-scoped generator (delete `flag:` above and use this instead):
-#       flag_generator: uuid            # ESPILON{<uuid4 hex>} per session
-#       flag_generator: wordlist        # random entry from flags/wordlist.txt
-#       flag_generator: hmac:<keyref>   # ESPILON{<hmac(secret, session_id)>}, re-derivable by a grader
+#       flag_generator: uuid            # ESPILON{<uuid4 hex>}, fresh per session
+#       flag_generator: wordlist        # random entry per session from flags/wordlist.txt,
+#                                       #   a file you ship beside lab.yaml, one candidate flag per line
+#       flag_generator: hmac:<keyref>   # ESPILON{<hmac(secret, session_id)>}; <keyref> names a secret the
+#                                       #   maintainers hold (you do not ship it); the grader re-derives the flag
 #
 # (3) Multi-flag staged objectives (delete `flag:` above and use this instead).
 #     One flag row per entry; the running image must expose each `content` over
@@ -75,5 +78,5 @@ flag: ESPILON{example_m0del_b_fl4g}
 #             Rung guidance for this specific stage.
 
 prerequisites: []                       # other challenge slugs that should be cleared first
-related_lesson_slug: example-course     # OPTIONAL back-link to the Learn lesson that teaches this
-related_box: []                         # static challenges that introduce the prerequisite reading
+related_lesson_slug: example-course     # OPTIONAL back-link to the course lesson that teaches this
+related_box: []                         # OPTIONAL list of prerequisite static-challenge slugs

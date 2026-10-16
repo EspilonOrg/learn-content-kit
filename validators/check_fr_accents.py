@@ -3,9 +3,9 @@
 
 Why this exists
 ---------------
-FR content has shipped accent-stripped more than once (wiki, box briefs, ROLLR):
-the author typed flat ASCII and then asserted the accents were there. Reading the
-text is not a check. This is.
+French content has shipped accent-stripped more than once: the author typed flat
+ASCII and then asserted the accents were there. Reading the text is not a check.
+This is.
 
 What it does
 ------------
@@ -23,33 +23,31 @@ For every FR field of a static-challenge meta.yml (`description_fr`,
   3. additionally asserts each FR field contains at least one accented character
      at all, which catches a wholesale accent strip that the word list missed.
 
-It also scans the SHIPPED BILINGUAL DOCUMENTS a challenge declares under
+It also scans any SHIPPED BILINGUAL DOCUMENT a challenge declares under
 `fr_docs:` in its meta.yml - the player-facing markdown that goes out inside
-files/, such as a flash guide or a player note. Those files are the FR text a
-player actually reads, and until they were declared here nothing checked them
-at all: the meta.yml FR fields could be perfect while the downloaded document
-was flat ASCII. Each entry is:
+files/, such as a flash guide or a player note. Those files are FR text a player
+actually reads, and the meta.yml FR fields could be perfect while the downloaded
+document was flat ASCII. Each entry is:
 
     fr_docs:
       - path: files/NOTE-JOUEUR.md
         require: [etape-with-its-accent, ...]
 
-The document is split into its EN and FR halves by tools/bilingual_doc.py (one
-rule, shared with tools/check_flash_instructions.py) and ONLY the FR half is
-scanned - the word lists below are French words, and English prose legitimately
-contains "cable" and "controle". A document with no FR half fails, which is
-what makes "we forgot to translate it" and "the FR heading lost its cedilla"
-both loud.
+The document is split into its EN and FR halves by bilingual_doc.py (next to this
+file) and ONLY the FR half is scanned - the word lists below are French words,
+and English prose legitimately contains "cable" and "controle". A document with
+no FR half fails, which makes "we forgot to translate it" and "the FR heading
+lost its cedilla" both loud.
 
 Usage
 -----
-    python3 tools/check_fr_accents.py challenges/static/satellite/cubesat-beacon
-    python3 tools/check_fr_accents.py path/to/meta.yml [more...]
-    python3 tools/check_fr_accents.py --all
+    python3 -I validators/check_fr_accents.py templates/static-challenge
+    python3 -I validators/check_fr_accents.py path/to/your-challenge [more...]
+    python3 -I validators/check_fr_accents.py --all path/to/a/folder
 
 Exit code is 0 only if every scanned FR field is clean.
 
-Dependencies: stdlib + pyyaml (same as validate_static_meta.py).
+Dependencies: Python 3 standard library + PyYAML.
 """
 from __future__ import annotations
 
@@ -82,8 +80,7 @@ _WORDLIST = frozenset({
     # NOT "identifie": unlike "génère" or "spécifie", the root of "identifier"
     # carries no diacritic, so "il identifie" and the imperative "Identifie-le"
     # are correctly spelled flat. Only the participle "identifiée" is always
-    # accented, and the é/e participle pair is what
-    # tools/check_static_fr_parity.py judges from the corpus.
+    # accented, so only "identifiee" is listed.
     "generee", "hexadecimal", "hexadecimale", "identifiee",
     "kilometre", "kilometres", "liee", "maniere", "materiel", "metre",
     "metres", "modele", "necessaire", "necessite", "numerique",
@@ -100,23 +97,18 @@ _WORDLIST = frozenset({
     "recepteur", "emetteur", "prevue", "prevu", "degre", "degres",
     "reel", "reelle", "reelles", "reels", "theorique", "theoriques",
     "bruitee", "bruite",
-    # ---- orphan words: correct nowhere else in the repo -------------------
-    # A corpus-derived rule (tools/check_course_fr_accents.py) can only forbid a
-    # flat token when some OTHER course writes the accented spelling. These words
-    # are written correctly in exactly one place each, so the corpus has nothing
-    # to compare against and they are invisible to it. This curated list is the
-    # documented floor for precisely that case, so they are added by hand.
-    #
-    # Each was judged individually against the rule at the top of this file: an
-    # entry must be a word that is NEVER correct without its accent. Three
-    # candidates were REJECTED for failing that test, and are recorded here so
-    # the decision is not made again:
-    #   boucle  - "la boucle principale" is the correct French noun (104 uses
-    #             across 30 courses) and "il boucle" is the correct verb.
+    # ---- hand-curated floor -----------------------------------------------
+    # Words whose accented spelling is the only correct one but which a
+    # frequency-derived rule would miss, because they are rare. Each was judged
+    # individually against the rule at the top of this file: an entry must be a
+    # word that is NEVER correct without its accent. A few candidates were
+    # REJECTED for failing that test, and are recorded here so the decision is
+    # not made again:
+    #   boucle  - "la boucle principale" is a correct French noun and "il boucle"
+    #             is a correct verb, both flat.
     #   stripe  - the jargon verb "striper" carries no diacritic in its root, so
     #             "stripe le binaire" is correctly flat, exactly like "identifie".
-    #   stripes - same root, and elf-anatomy already ships the correct second
-    #             person "Tu stripes un binaire", which this entry would fail.
+    #   stripes - same root, and "Tu stripes un binaire" is correct flat.
     "decompileur", "emulant", "emulee", "evacuer", "genial", "gerees",
     "hashee", "menera", "penible", "similarite",
     # "re-" takes an accent before a vowel in French ("reimport" is only ever
@@ -320,9 +312,8 @@ def check_expected_words(data: dict, fields) -> list[str]:
     The negative scan above can only catch words it already knows. A brief with
     few accents, or one whose stripped words are not in the list, passes it
     while still reading as broken French. So a meta.yml may also declare the
-    words that MUST appear, accented exactly as written, in its FR text -- the
-    same convention tools/box_briefs.json uses. This is what makes the check
-    per-string and specific rather than a bulk accent count.
+    words that MUST appear, accented exactly as written, in its FR text. This is
+    what makes the check per-string and specific rather than a bulk accent count.
 
     Each entry must (a) carry at least one accent itself, otherwise it asserts
     nothing, and (b) appear verbatim in the concatenated FR fields. Reword an FR
@@ -367,14 +358,33 @@ def _iter_all(root: str):
             yield os.path.join(dirpath, "meta.yml")
 
 
+_USAGE = (
+    "usage: check_fr_accents.py <challenge-folder> [more folders...]\n"
+    "       check_fr_accents.py --all <folder-to-recurse>\n"
+    "\n"
+    "Pass a challenge folder (the directory holding meta.yml) or a path to a\n"
+    "meta.yml. For example:\n"
+    "       python3 -I validators/check_fr_accents.py templates/static-challenge"
+)
+
+
 def main(argv: list[str]) -> int:
     args = argv[1:]
-    if not args or args == ["--all"]:
-        repo = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        root = os.path.join(repo, "challenges", "static")
-        targets = sorted(_iter_all(root))
+    if not args:
+        print(_USAGE, file=sys.stderr)
+        return 2
+
+    if args[0] == "--all":
+        roots = args[1:] or ["."]
+        targets = sorted(m for root in roots for m in _iter_all(root))
         # --all is a survey: only report challenges that HAVE FR fields.
         targets = [t for t in targets if _has_fr(t)]
+        if not targets:
+            print(
+                f"no meta.yml with FR fields found under: {', '.join(roots)}\n{_USAGE}",
+                file=sys.stderr,
+            )
+            return 2
         print(f"=== check_fr_accents: scanning {len(targets)} meta.yml with FR fields ===")
     else:
         targets = [_resolve(a) for a in args]

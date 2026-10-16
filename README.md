@@ -50,12 +50,15 @@ python3 -I templates/static-challenge/generate.py
 python3 -I templates/static-challenge/solve.py
 python3 -I validators/validate_static_meta.py templates/static-challenge
 python3 -I validators/check_fr_accents.py templates/static-challenge
+
+# Model-B lab: field and compose check.
+python3 -I validators/check_lab_yaml.py templates/model-b-lab
 ```
 
-Point the validators at your own folder instead of the template. Courses, labs
-and wiki entries carry checks that need the platform or the full content corpus;
-those run on the maintainer side at ingestion, and each per-type doc says which
-is which.
+Point the validators at your own folder instead of the template. Courses and
+wiki entries carry checks that need the platform or the full content corpus;
+those run on the maintainer side at ingestion, and each per-type doc says exactly
+which checks you run locally and which are maintainer-side.
 
 ## House rules
 

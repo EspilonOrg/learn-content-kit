@@ -10,13 +10,15 @@ That delivery model is the whole point and it has a name: Model B. The player
 brings the attacker side; you ship the target only.
 
 Template: `templates/model-b-lab/` (`lab.yaml` next to `compose.yaml`). Copy both
-files, fill them in, and submit through the Espilon Learn member portal. The
-maintainers place the lab in the platform's labs repository when it is ingested.
-You do not deploy it yourself.
+files, fill them in, run the local field check, and submit through the Espilon
+Learn member portal. The maintainers place the lab in the platform's labs
+repository when it is ingested. You do not deploy it yourself.
 
-There is no public validator for these fields yet, so this doc and the shipped
-reference labs are the reference, not a gate. When this doc and a shipped lab
-disagree, ask through the portal which is canonical. Do not guess.
+The field checklist below is the contract. A local checker, `check_lab_yaml.py`,
+verifies the parts of it that can be checked offline (the enums, the flag shape,
+the exactly-one-of rule, the success_criteria shape, and the compose
+strict-subset rules). It is a field linter, not the platform's own gate: the
+runtime applies the same compose rules when it spawns the lab.
 
 ## The files
 
@@ -49,13 +51,43 @@ template shows the two declarative files the platform reads.
 
 ### The flag, pick exactly one shape
 
-1. Single static flag (the template default). Its value must equal the value
-   `compose.yaml` injects at spawn, byte for byte.
-2. Session-scoped generator: `flag_generator: uuid`, `wordlist`, or
-   `hmac:<keyref>` for a per-session flag a grader can re-derive.
-3. Multi-flag staged objectives: a `flags:` list, one entry per stage with its
-   own `content`, `points`, `order` and `hint`. The running image must expose
-   each `content` over the protocol at runtime.
+Declare exactly one of `flag`, `flag_generator` or `flags`.
+
+1. Single static flag (`flag:`, the template default). Its value must equal the
+   value `compose.yaml` injects at spawn, byte for byte.
+2. Session-scoped generator (`flag_generator:`), one of:
+   - `uuid`: the flag is `ESPILON{<uuid4 hex>}`, a fresh random value per
+     session.
+   - `wordlist`: the flag is a random entry per session drawn from a
+     `flags/wordlist.txt` you ship beside `lab.yaml`, one candidate flag per
+     line. Use it when you want human-readable per-session flags.
+   - `hmac:<keyref>`: the flag is `ESPILON{<hmac(secret, session_id)>}`.
+     `<keyref>` names a secret the maintainers hold on the platform (you do not
+     ship the secret); the grader re-derives the expected flag from the secret
+     and the session id. Use it when a flag must be verifiable server-side
+     without storing it.
+3. Multi-flag staged objectives (`flags:`), a list with one entry per stage,
+   each carrying `slug`, `label`, `content` (an `ESPILON{...}` flag), `points`,
+   `order` and `hint`. The running image must expose each `content` over the
+   protocol at runtime. Example:
+
+   ```yaml
+   flags:
+     - slug: stage-1
+       label: What the player achieved to earn this flag
+       content: ESPILON{stage_one_fl4g}
+       points: 100
+       order: 1
+       hint: |
+         Rung guidance for this specific stage.
+     - slug: stage-2
+       label: The deeper objective
+       content: ESPILON{stage_two_fl4g}
+       points: 100
+       order: 2
+       hint: |
+         Rung guidance for stage two.
+   ```
 
 ## Fill in compose.yaml
 
@@ -68,6 +100,40 @@ build context and is ignored at runtime; the runtime reads only `image:`.
 The flag is injected here at spawn through the service environment, never baked
 into the image. Its value must match `lab.yaml` byte for byte. The target reads
 it from the environment and emits it over the protocol.
+
+## Field checklist
+
+Everything the local checker enforces, so you can see the whole contract at once:
+
+- `lab.yaml` has `slug` (with the `lab-` prefix), `title`, `category`,
+  `difficulty`, `description` and `success_criteria`.
+- `category` is one of:
+  `hardware firmware iot ot-ics esp32 wifi bluetooth drone camera misc`.
+- `difficulty` is one of: `easy medium hard insane`.
+- exactly one of `flag`, `flag_generator`, `flags` is declared.
+  - `flag` matches the `ESPILON{...}` shape.
+  - `flag_generator` is `uuid`, `wordlist`, or `hmac:<keyref>` with a non-empty
+    keyref.
+  - `flags` is a non-empty list, each entry carrying `slug`, `label`, `content`
+    (an `ESPILON{...}` flag), `points` and `order`.
+- `success_criteria` is a mapping with `type: flag_submit` and a non-empty
+  `hint`.
+- `compose.yaml` has no `privileged`, no `cap_add`, no host-path bind mounts and
+  no host network mode.
+- for a single-flag lab, a service injects `FLAG=<the lab.yaml flag>` in its
+  environment, byte for byte.
+
+## Run the local check
+
+```bash
+pip install pyyaml
+python3 -I validators/check_lab_yaml.py templates/model-b-lab
+```
+
+Point it at your own lab folder instead of the template. Exit 0 means the fields
+are well-formed. It does not and cannot judge whether the lab teaches well or
+whether the target actually emits the flag at runtime; that is on you and on the
+maintainer review.
 
 ## Topology
 
@@ -86,8 +152,6 @@ it from the environment and emits it over the protocol.
    flag reaches the player ONLY over the protocol
 ```
 
-<!-- SVG PLACEHOLDER: replace with a diagram of the session network and flag path -->
-
 A second service (a database, a broker) is allowed. Put shared services on a
 Compose network with `internal: true` and address them by service name. They
 must have no host-side address.
@@ -103,9 +167,9 @@ teaches the lab.
 
 Submit `lab.yaml`, `compose.yaml` and your image build context through the member
 portal. The maintainers build and register the image, reconcile the slug with the
-live lab record, and wire any lesson that back-links the lab. There is no local
-gate you can run against `lab.yaml`, so diff it against a shipped reference lab
-and verify the compose runtime constraints by hand before you submit.
+live lab record, and wire any lesson that back-links the lab. Run the local field
+check first (see above) so the fields and compose constraints are clean before
+you submit.
 
 ## Traps that cost time
 
@@ -122,5 +186,11 @@ and verify the compose runtime constraints by hand before you submit.
   lab. Run any check from inside the session network, never from the host.
 - `category` confused with a folder name. It is a closed enum; pick the enum
   value, not the directory the lab is filed under.
-- Treating this doc as a gate. There is no validator here. The reference labs are
-  the ground truth; when they and this doc differ, ask.
+- Declaring more than one of `flag` / `flag_generator` / `flags`. Exactly one.
+  The local checker flags this, but it is worth stating: a stray `flag:` left
+  above a `flags:` list is the common slip.
+- Assuming a green local check means the lab is done. It means the fields are
+  well-formed. Whether the target emits the flag over the protocol at runtime,
+  and whether the lab teaches, is on you and the maintainer review. When a rule
+  here is genuinely unclear for your protocol, ask through the portal rather
+  than guessing.

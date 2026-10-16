@@ -1,0 +1,26 @@
+# Course identity. The maintainers read this to create the course record when
+# your submission is ingested. Fill in every field; replace the example values.
+
+# title: the display name of the course, in English.
+title: "Example Course"
+
+# slug: unique lowercase kebab-case identifier. It is how lessons, challenges
+# and labs refer to this course, so keep it stable once submitted.
+slug: example-course
+
+# difficulty: the course difficulty axis, a closed set. Exactly one of:
+#   beginner | intermediate | advanced
+# This is a DIFFERENT vocabulary from a static challenge's `level` (the CTF grid
+# very-easy/easy/medium/hard/insane). Do not mix the two.
+difficulty: beginner
+
+# summary: one or two sentences shown on the catalogue card. Lead with the
+# concrete scenario the course teaches, not with the catalogue around it.
+summary: >
+  A short, concrete description of what this course teaches and why it matters.
+  Replace it with yours. State the target, the skill, and the payoff.
+
+# track: the curriculum track this course belongs to, as a slug. The maintainers
+# map it to a live track on ingestion; if you are not sure which track fits, say
+# so when you submit rather than guessing.
+track: example-track

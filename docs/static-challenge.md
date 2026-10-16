@@ -71,8 +71,6 @@ How the three scripts and the flag relate:
   meta.yml `flag:`  (solve.py asserts its output equals this)
 ```
 
-<!-- SVG PLACEHOLDER: replace with a diagram of the artifact-to-flag path -->
-
 The invariant to hold: the artifact encodes the answer, the build is
 deterministic, and `solve.py` reproduces `meta.yml`'s flag exactly. Break any one
 and the challenge is unproven.

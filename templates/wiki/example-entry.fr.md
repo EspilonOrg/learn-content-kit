@@ -36,5 +36,4 @@ echo "évalue la cible ici"
 Les erreurs et idées fausses précises, pas des conseils génériques.
 
 ## Pour aller plus loin
-- wiki:esp32
-- wiki:uart
+- wiki:example-entry

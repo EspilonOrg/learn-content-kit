@@ -8,9 +8,9 @@ tags: "example, placeholder, concept"
 terms: "example entry"
 icon: "EX"
 published: true
-image: "img/wiki/example-entry.webp"
-related_gear: "usb-uart"
-related_courses: "esp32-nvs-forensics"
+image: "img/wiki/example-entry.webp"   # OPTIONAL hero image; see docs/wiki-entry.md for how to submit the webp
+related_gear: "replace-with-a-real-gear-slug"       # replace with a real platform slug; maintainers validate on ingestion
+related_courses: "replace-with-a-real-course-slug"  # replace with a real platform slug; maintainers validate on ingestion
 diagram:
   type: tree
   title: {en: "Where this concept sits", fr: "Où se situe ce concept"}
@@ -54,5 +54,4 @@ echo "assess the target here"
 The specific mistakes and misconceptions, not generic advice.
 
 ## Further reading
-- wiki:esp32
-- wiki:uart
+- wiki:example-entry

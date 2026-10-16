@@ -36,7 +36,10 @@ image, related_gear, related_courses, diagram
 - `published`: `true` to show it.
 - `image`: the optional hero image (see the image rule below).
 - `related_gear`, `related_courses`: slugs of the gear and courses that use this
-  thing. They surface as cards on the page.
+  thing; they surface as cards on the page. Put a real platform slug here. You do
+  not have the full catalogue to check against, so the maintainers validate these
+  on ingestion; a slug that does not resolve is dropped rather than shipped
+  broken.
 - `diagram`: an optional structured diagram (see the diagram rule below).
 
 Everything in the frontmatter degrades safely, so a half-filled entry still
@@ -65,14 +68,16 @@ that already exist.
                    falls back to EN body if absent
 ```
 
-<!-- SVG PLACEHOLDER: replace with a diagram of the entry pair and its surfaces -->
-
 ## Image and diagram rule
 
 Two separate things:
 
-- `image`: one optional hero image, referenced as `img/wiki/<slug>.webp`, a 16:9
-  webp. At most one per entry.
+- `image`: one optional hero image. Reference it as `img/wiki/<slug>.webp` in the
+  frontmatter, and submit the actual webp alongside the two markdown files
+  through the member portal (a 16:9 webp, named for your slug). The maintainers
+  place it at that path when the entry is ingested; you do not commit a binary
+  into a content submission. At most one per entry. If you have no image, drop
+  the `image:` line and the entry still renders.
 - `diagram`: one optional structured diagram declared in the EN frontmatter. The
   schema holds at most one, and it is typed: pick the type that fits the subject
   (`timing`, `wire`, `bus`, `tree` or `partition`). Its text leaves carry both
@@ -90,7 +95,9 @@ here. Before you submit, verify by hand:
   and the `fr:` leaves of any `diagram:` block, asserted per word;
 - `tags` that look numeric are quoted;
 - the `diagram:` block, if present, is one known type;
-- `related_gear` and `related_courses` name slugs that actually exist.
+- `related_gear` and `related_courses` hold real platform slugs (the maintainers
+  validate them against the live catalogue on ingestion; a slug that does not
+  resolve is dropped).
 
 ## How it reaches the platform
 
@@ -111,5 +118,6 @@ category.
 - A numeric `tag` left unquoted. `802154` becomes an integer and the tag breaks.
 - More than one diagram, or an unknown diagram type. The schema holds one typed
   diagram; a second is dropped.
-- A dead `related_courses` or `related_gear` slug. It renders as a broken card.
-  Name slugs that exist.
+- A placeholder left in `related_courses` or `related_gear`. Replace it with a
+  real platform slug; the maintainers validate these on ingestion and drop any
+  that does not resolve, so a forgotten placeholder silently loses the card.
