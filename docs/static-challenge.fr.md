@@ -16,10 +16,10 @@ tiennes.
 
 ```
 static-challenge/
-  meta.yml        the challenge record: flag, category, level, hints, bilingual brief
-  generate.py     builds files/ deterministically; the artifact ENCODES the answer
-  solve.py        the reference solver: recovers the flag from files/ alone
-  files/          exactly what the player downloads (pinned by meta.yml `files:`)
+  meta.yml        la fiche du challenge : flag, category, level, hints, brief bilingue
+  generate.py     construit files/ de façon déterministe ; l'artefact ENCODE la réponse
+  solve.py        le solveur de référence : récupère le flag depuis files/ seul
+  files/          exactement ce que le joueur télécharge (épinglé par meta.yml `files:`)
 ```
 
 `generate.py` et `solve.py` ne sont jamais livrés au joueur. Seul le contenu de
@@ -67,17 +67,17 @@ bilingue et relié au wiki : `tags`, `files`, `technique`, `description_fr`,
 Comment les trois scripts et le flag sont reliés :
 
 ```
-  TOKEN (constant in generate.py)
+  TOKEN (constante dans generate.py)
          |
-         |  generate.py  (deterministic build)
+         |  generate.py  (build déterministe)
          v
-  files/sample.bin  ---- what the player downloads ----
-         |                                             |
-         |  solve.py (reference)        player's own analysis
-         v                                             |
-  ESPILON{TOKEN}  <===== must be byte-for-byte equal ==+
+  files/sample.bin  ---- ce que le joueur télécharge --------
+         |                                                  |
+         |  solve.py (référence)        analyse du joueur
+         v                                                  |
+  ESPILON{TOKEN}  <===== doit être égal octet pour octet ===+
          ^
-  meta.yml `flag:`  (solve.py asserts its output equals this)
+  meta.yml `flag:`  (solve.py vérifie que sa sortie égale ceci)
 ```
 
 L'invariant à tenir : l'artefact encode la réponse, la construction est
@@ -98,16 +98,16 @@ le dossier d'artefact.
 Depuis la racine du kit, hors ligne, sans plateforme et sans base de données :
 
 ```bash
-# 1. Build the artifact (deterministic; safe to rerun).
+# 1. Construis l'artefact (déterministe ; sans risque à relancer).
 python3 -I templates/static-challenge/generate.py
 
-# 2. Prove the challenge is solvable from the artifact alone and the flag matches.
+# 2. Prouve que le challenge se résout depuis le seul artefact et que le flag correspond.
 python3 -I templates/static-challenge/solve.py
 
-# 3. Validate the meta record.
+# 3. Valide la fiche meta.
 python3 -I validators/validate_static_meta.py templates/static-challenge
 
-# 4. Scan the French fields for stripped accents.
+# 4. Scanne les champs français pour des accents retirés.
 python3 -I validators/check_fr_accents.py templates/static-challenge
 ```
 

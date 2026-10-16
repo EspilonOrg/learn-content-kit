@@ -15,8 +15,8 @@ remplis-les.
 
 ```
 wiki/
-  <slug>.md      EN: frontmatter + markdown body + optional diagram block
-  <slug>.fr.md   FR: translates title and summary; body is the French markdown
+  <slug>.md      EN : frontmatter + corps markdown + bloc diagram optionnel
+  <slug>.fr.md   FR : traduit title et summary ; le corps est le markdown français
 ```
 
 Le fichier d'appoint `.fr.md` ne traduit que le `title` et le `summary` du
@@ -66,15 +66,15 @@ existent déjà.
 ## Topologie
 
 ```
-  wiki entry
+  entrée wiki
    |
-   +-- <slug>.md       EN frontmatter + EN body + (optional) diagram: block
-   |                                                 |
-   |                                         fr: leaves inside diagram
-   |                                         are the FR diagram labels
-   +-- <slug>.fr.md    FR title + FR summary + FR body
+   +-- <slug>.md       frontmatter EN + corps EN + bloc diagram: (optionnel)
+   |                                             |
+   |                                     les feuilles fr: dans diagram
+   |                                     sont les libellés FR du diagramme
+   +-- <slug>.fr.md    title FR + summary FR + corps FR
                           |
-                   falls back to EN body if absent
+                   retombe sur le corps EN si absent
 ```
 
 ## Règle des images et des diagrammes

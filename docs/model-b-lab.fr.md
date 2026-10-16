@@ -28,8 +28,8 @@ quand elle instancie le lab.
 
 ```
 model-b-lab/
-  lab.yaml       metadata: slug, category, difficulty, points, flag(s), success criteria
-  compose.yaml   the runtime: the target service(s), the flag injected at spawn
+  lab.yaml       métadonnées : slug, category, difficulty, points, flag(s), success criteria
+  compose.yaml   l'exécution : le ou les services cibles, le flag injecté à l'instanciation
 ```
 
 Un vrai lab porte aussi le contexte de build de l'image (un répertoire `target/`
@@ -84,19 +84,19 @@ Déclare exactement un parmi `flag`, `flag_generator` ou `flags`.
    ```yaml
    flags:
      - slug: stage-1
-       label: What the player achieved to earn this flag
+       label: Ce que le joueur a accompli pour gagner ce flag
        content: ESPILON{stage_one_fl4g}
        points: 100
        order: 1
        hint: |
-         Rung guidance for this specific stage.
+         Conseil de barreau pour cette étape précise.
      - slug: stage-2
-       label: The deeper objective
+       label: L'objectif plus profond
        content: ESPILON{stage_two_fl4g}
        points: 100
        order: 2
        hint: |
-         Rung guidance for stage two.
+         Conseil de barreau pour la deuxième étape.
    ```
 
 ## Remplir compose.yaml
@@ -149,18 +149,18 @@ l'exécution ; cela revient à toi et à la revue des mainteneurs.
 ## Topologie
 
 ```
-   player's own machine (Kali, espilon-probe, ...)
+   machine du joueur (Kali, espilon-probe, ...)
             |
-            |  ephemeral host port, assigned per session
+            |  port hôte éphémère, attribué par session
             v
-   +--------------------+        internal network (internal: true)
-   |  target service    | -----------------------------+
-   |  FLAG from env      |                              |
-   |  emits over proto   |                        +-----------+
-   +--------------------+                         | broker/db |
-            ^                                     | internal   |
-            |  no shell, no file, no ttyd         +-----------+
-   flag reaches the player ONLY over the protocol
+   +--------------------+        réseau interne (internal: true)
+   |  service cible     | --------------------------------+
+   |  FLAG depuis l'env |                                 |
+   |  émet via le proto |                     +-----------+
+   +--------------------+                     | broker/db |
+            ^                                 | interne   |
+            |  pas de shell, pas de fichier   +-----------+
+   le flag atteint le joueur UNIQUEMENT via le protocole
 ```
 
 Un second service (une base de données, un broker) est autorisé. Mets les

@@ -14,15 +14,15 @@ qui suit exactement le format de la maison.
 
 ```
 course/
-  course.yaml                course identity: title, slug, difficulty, summary, track
-  _modules.yaml              structure: module slugs, order, icons, archetype
-  _artifacts.yaml            pins the challenge artifact bytes by sha256
+  course.yaml                identité du cours : title, slug, difficulty, summary, track
+  _modules.yaml              structure : slugs de module, ordre, icônes, archetype
+  _artifacts.yaml            épingle les octets d'artefact du challenge par sha256
   lesson-en/
-    lessons.md               EN lessons (structural fields are read from here)
-    module-text.yaml         EN module titles and descriptions
+    lessons.md               leçons EN (les champs structurels sont lus ici)
+    module-text.yaml         titres et descriptions de module EN
   lesson-fr/
-    lessons.md               FR lessons (each writes a translation row)
-    module-text.yaml         FR module titles and descriptions
+    lessons.md               leçons FR (chacune écrit une ligne de traduction)
+    module-text.yaml         titres et descriptions de module FR
 ```
 
 Ajoute une locale en ajoutant un répertoire `lesson-<locale>/` avec les deux
@@ -118,10 +118,10 @@ longueurs, nombres de trames) ne correspondent plus. Le format :
 
 ```
 artifacts:
-  - slug: <challenge-slug>        # matches an ARTIFACT: challenge:<slug> line
-    path: <where the challenge lives in your submission>
+  - slug: <challenge-slug>        # correspond à une ligne ARTIFACT: challenge:<slug>
+    path: <emplacement du challenge dans ta soumission>
     files:
-      <filename>: sha256:<hex>    # one line per pinned player-facing file
+      <filename>: sha256:<hex>    # une ligne par fichier joueur épinglé
 ```
 
 Le `templates/course/_artifacts.yaml` livré est un exemple rempli qui épingle le
@@ -142,14 +142,14 @@ supprime le fichier.
 Comment les pièces se câblent entre elles :
 
 ```
-  _modules.yaml  (archetype, module slugs + order)
+  _modules.yaml  (archetype, slugs de module + ordre)
         |
-        +--> lesson-en/lessons.md     (structural truth + EN prose)
-        +--> lesson-fr/lessons.md     (FR translation rows)
-        +--> lesson-*/module-text.yaml (per-locale module titles)
+        +--> lesson-en/lessons.md     (vérité structurelle + prose EN)
+        +--> lesson-fr/lessons.md     (lignes de traduction FR)
+        +--> lesson-*/module-text.yaml (titres de module par locale)
         |
-   lesson block  --- ARTIFACT: challenge:<slug> --->  static challenge
-                 --- ARTIFACT: lab:<slug>       --->  Model-B lab
+   bloc de leçon  --- ARTIFACT: challenge:<slug> --->  static challenge
+                  --- ARTIFACT: lab:<slug>       --->  lab Model-B
 ```
 
 Les champs structurels vivent une seule fois, dans `lesson-en`. Chaque autre

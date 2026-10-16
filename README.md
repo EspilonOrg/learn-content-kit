@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/espilon-logo.png" alt="Espilon" width="200"></p>
+
 # Espilon Learn content-authoring kit
 
 Français: [README.fr.md](README.fr.md)
@@ -71,3 +73,7 @@ rules and how to propose content.
 ## License
 
 MIT. See `LICENSE`.
+
+The Espilon name and logo are trademarks of the Espilon association and are not
+covered by the MIT license. The MIT license applies to the templates, scripts
+and documentation in this repository, not to the Espilon marks.

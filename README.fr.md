@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/espilon-logo.png" alt="Espilon" width="200"></p>
+
 # Kit de création de contenu Espilon Learn
 
 English: [README.md](README.md)
@@ -51,7 +53,7 @@ mainteneurs exécutent à l'ingestion.
 ```bash
 pip install pyyaml
 
-# Static challenge : construis l'artefact, prouve qu'il se resout, valide, scanne le FR.
+# Static challenge : construis l'artefact, prouve qu'il se résout, valide, scanne le FR.
 python3 -I templates/static-challenge/generate.py
 python3 -I templates/static-challenge/solve.py
 python3 -I validators/validate_static_meta.py templates/static-challenge
@@ -76,3 +78,7 @@ Voir `CONTRIBUTING.md` pour les règles complètes et comment proposer du conten
 ## Licence
 
 MIT. Voir `LICENSE`.
+
+Le nom et le logo Espilon sont des marques de l'association Espilon et ne sont
+pas couverts par la licence MIT. La licence MIT s'applique aux templates, aux
+scripts et à la documentation de ce dépôt, pas aux marques Espilon.
