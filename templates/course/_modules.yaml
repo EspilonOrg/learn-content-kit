@@ -1,0 +1,15 @@
+# Structural module spec. NO display strings here (titles and descriptions live
+# per locale in lesson-<locale>/module-text.yaml). The Espilon Learn course sync
+# reads this for slug, order and icon only when your submission is ingested.
+#
+# archetype drives the course shape: project (default, archetype A), reference
+# (B, cookbook) or fundamentals (C). See docs/course.md.
+archetype: project
+
+modules:
+  - slug: intro
+    order: 1
+    icon: ""
+  - slug: practice
+    order: 2
+    icon: ""

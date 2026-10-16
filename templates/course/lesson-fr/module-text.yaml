@@ -1,0 +1,10 @@
+# Chaînes d'affichage des modules (FR), par locale. Mêmes slugs que
+# ../_modules.yaml. Le sync de cours Espilon Learn écrit ces valeurs pour la
+# locale fr lors de l'ingestion de ta soumission.
+modules:
+  - slug: intro
+    title: "Introduction et premier contact"
+    description: "Le scénario qui motive le cours, et l'unique concept nécessaire avant la première vraie tentative."
+  - slug: practice
+    title: "Le prouver sur la cible"
+    description: "Transformer le concept en résultat concret sur l'artefact fourni, puis soumettre le flag."

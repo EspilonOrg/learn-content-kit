@@ -1,0 +1,10 @@
+# Per-locale module display strings (EN). Keyed by the slug declared in
+# ../_modules.yaml. The Espilon Learn course sync writes these per locale when
+# your submission is ingested.
+modules:
+  - slug: intro
+    title: "Introduction and first contact"
+    description: "The scenario that motivates the course, and the one concept you need before the first real attempt."
+  - slug: practice
+    title: "Prove it on the target"
+    description: "Turn the concept into a worked result against the shipped artifact, then submit the flag."

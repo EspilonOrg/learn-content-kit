@@ -1,0 +1,110 @@
+# Fill-in template for a static challenge meta.yml.
+#
+# This file is REAL and passes validators/validate_static_meta.py as shipped.
+# Copy this folder, replace the example values, run the local checks, and submit
+# it through the Espilon Learn member portal. The maintainers place it under the
+# platform's static-challenge tree when your submission is ingested. See
+# docs/static-challenge.md for the walkthrough.
+#
+# This template is itself a complete, gate-passing reference: every key below is
+# filled with a working example you can diff your own values against.
+#
+# REQUIRED keys (validate_static_meta.py rejects the file without them):
+#   slug title category level flag description hints
+# OPTIONAL but expected for a bilingual, wiki-linked challenge:
+#   tags files technique description_fr technique_fr hints_fr max_attempts
+
+slug: example-static-challenge
+title: Example Static Challenge
+
+# category is written straight to the CTFd row and groups challenges in the UI.
+# Rule: lowercase kebab-case only. A stray capital or underscore silently splits
+# the group. This is NOT the course difficulty vocabulary.
+category: example
+
+# level is the CTF grid, a CLOSED vocabulary. Exactly one of:
+#   very-easy | easy | medium | hard | insane
+# It is a different axis from Course.difficulty (beginner/intermediate/advanced).
+level: easy
+
+# tags become CTFd Tags rows and drive the related-wiki card on the challenge
+# page. Quote any tag that looks numeric (a bare 802154 parses as an int).
+tags:
+  - example
+  - xor
+
+# files pins the exact player-facing downloads. Without this key the ingestion
+# attaches every regular file under files/, so a stray scratch file leaks.
+# Build the artifact with generate.py before you submit.
+files:
+  - sample.bin
+
+# flag MUST match the ESPILON{...} shape: literal ESPILON, one {...} block,
+# at least one character, no nested braces. Make it CONCRETE, never a placeholder
+# pattern. For a static challenge the flag is derived from the artifact itself;
+# solve.py proves this one is recoverable from files/sample.bin alone.
+flag: ESPILON{xor_k3y_rec0very}
+
+# description is the player-facing brief. State the task and the exact answer
+# format. A folded '>' block avoids the ': ' YAML trap that a plain multi-line
+# scalar falls into. Keep it a datasheet: it states, it does not interpret.
+description: >
+  A single artifact is provided, files/sample.bin, a short log that was stored
+  obfuscated. Recover the plaintext from the artifact alone and read the marker
+  it carries. The flag is ESPILON{TOKEN}, where TOKEN is the exact value that
+  follows the recovered marker. Replace this brief with your own, and keep the
+  answer format explicit.
+
+# technique is the private design note (not shown to players by default). State
+# the intended solve path and why naive shortcuts fail, so a reviewer can judge
+# the difficulty and so the challenge survives a blind playtest.
+technique: >
+  Single-byte XOR obfuscation. The artifact is the plaintext log XOR a constant
+  byte, so the key is the one byte that makes every output byte printable ASCII.
+  Recover it by brute force over the 256 candidate keys, keep the only printable
+  decode, and read the TOKEN marker. solve.py is the reference solver and asserts
+  its own output equals this file's flag.
+
+# A non-empty list of non-empty strings. A real rung ladder teaches the HOW
+# without handing over the answer. The paid hint ladder, not the brief, carries
+# the method. Do not let the last rung print the flag or the exploit verbatim.
+hints:
+  - >
+    The artifact is not random. Count the byte values: a short log obfuscated
+    with a single repeating key keeps a very uneven byte histogram, unlike
+    compressed or encrypted data.
+  - >
+    Single-byte XOR has only 256 possible keys. Try each one and keep the
+    decode whose bytes are all printable ASCII. Exactly one key fits.
+  - >
+    The recovered plaintext carries a marker of the form TOKEN=... . Take the
+    value after it verbatim and wrap it as ESPILON{TOKEN}.
+
+# description_fr / technique_fr / hints_fr: the French twin. Natural technical
+# French with REAL accents; keep tool and protocol names in English. Missing FR
+# falls back to EN, so ship FR when the challenge is meant to be bilingual.
+description_fr: >
+  Un seul artefact est fourni, files/sample.bin, un court journal stocké de
+  façon obscurcie. Reconstruis le texte en clair à partir du seul artefact et
+  lis le marqueur qu'il porte. Le flag est ESPILON{TOKEN}, où TOKEN est la
+  valeur exacte qui suit le marqueur récupéré. Remplace ce brief par le tien et
+  garde le format de réponse explicite.
+technique_fr: >
+  Obscurcissement par XOR à un octet. L'artefact est le journal en clair XOR un
+  octet constant, donc la clé est l'unique octet qui rend chaque octet de sortie
+  en ASCII imprimable. On la retrouve par force brute sur les 256 clés
+  candidates, on garde l'unique décodage imprimable, et on lit le marqueur
+  TOKEN. solve.py est le solveur de référence et vérifie que sa sortie est égale
+  au flag de ce fichier.
+hints_fr:
+  - >
+    L'artefact n'est pas aléatoire. Compte les valeurs d'octets : un court
+    journal obscurci par une clé unique qui se répète garde un histogramme très
+    déséquilibré, contrairement à des données compressées ou chiffrées.
+  - >
+    Le XOR à un octet n'a que 256 clés possibles. Essaie-les toutes et garde le
+    décodage dont tous les octets sont de l'ASCII imprimable. Une seule clé
+    convient.
+  - >
+    Le texte en clair récupéré porte un marqueur de la forme TOKEN=... . Prends
+    la valeur qui suit, telle quelle, et enveloppe-la en ESPILON{TOKEN}.

@@ -1,0 +1,29 @@
+# Fill-in template for a Model-B lab compose.yaml.
+#
+# Lives beside lab.yaml. Parsed by the Espilon Learn lab runtime as a STRICT
+# subset. Rejected fields:
+#   privileged, cap_add, bind mounts (volumes to host paths), host network mode.
+# Host ports are ignored: the runtime assigns one ephemeral port per session, so
+# list the container port only. `build:` is the image build context and is
+# ignored by the runtime, which reads only `image:`.
+#
+# Model-B rule: ship ONLY the target service(s). No attacker shell, no ttyd, no
+# flag on the filesystem. The player brings their own tools.
+#
+# The FLAG is injected HERE at spawn, never baked into the image. Its value MUST
+# match lab.yaml flags[].content (or `flag`) byte for byte. The target reads it
+# from the environment and emits it over the protocol; the bridge fails closed if
+# it is unset.
+services:
+
+  target:
+    image: espilon/learn-lab-example-model-b:1.0
+    build: ./target
+    ports:
+      - "41099"          # container port only; the daemon maps an ephemeral host port
+    environment:
+      - FLAG=ESPILON{example_m0del_b_fl4g}
+    # No privileged, no cap_add, no volumes to host paths, no network_mode: host.
+    # A second internal-only service (a database, a broker) is allowed; put shared
+    # services on a compose network with internal: true and address them by their
+    # service name. See docs/model-b-lab.md for multi-service topologies.
